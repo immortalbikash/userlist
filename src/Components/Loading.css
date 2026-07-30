@@ -1,0 +1,13 @@
+.loading {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  /* width: 40%; */
+  margin: auto;
+  height: 200px;
+  border: 2px dotted brown;
+  border-radius: 6px;
+}

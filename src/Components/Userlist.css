@@ -13,18 +13,21 @@ input {
 .user_list {
   margin-top: 50px;
   width: 100%;
-  border: 2px solid green;
+  border: 2px solid #8a8a80;
   border-radius: 6px;
 }
 .user {
   padding: 15px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 2px solid red;
+  border-bottom: 2px solid #e5e7eb;
   align-items: center;
+  background-color: white;
+}
+.user p {
+  color: #8a8a80;
 }
 
 .left p {
   margin-top: -15px;
-  color: green;
 }

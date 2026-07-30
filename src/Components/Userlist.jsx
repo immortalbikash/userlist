@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import './Userlist.css'
 import axios from 'axios';
+import Spinner from 'react-bootstrap/Spinner';
+import Loading from './Loading';
 
 const Userlist = () => {
 
     const [users, setUsers] = useState([]);
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true);
 
     const getUsers = async () => {
 
         try {
             const response = await axios.get(`https://jsonplaceholder.typicode.com/users`)
+            setLoading(false)
             setUsers(response.data);
-            console.log(users);
+            console.log(response.data);
         } catch (error) {
             setError(error.message);
+            setLoading(false)
         }
 
 
@@ -26,28 +31,35 @@ const Userlist = () => {
     }, [])
 
     return (
-        <div className='article'>
-            <h1>Team Members</h1>
-            <input type="text" placeholder='Search by name...' />
+        <>
+            <div className='article'>
+                <h1>Team Members</h1>
+                <input type="text" placeholder='Search by name...' />
 
-            <div className="user_list">
-                {
-                    users.map((user) => (
-                        <div key={user.id}>
-                            <div className="user">
-                                <div className="left">
-                                    <h3>{user.name}</h3>
-                                    <p>leane@gmail.com</p>
+                {loading ? (<Loading />) : (
+                    <div className="user_list">
+                        {
+                            users.map((user) => (
+                                <div key={user.id}>
+                                    <div className="user">
+                                        <div className="left">
+                                            <h3>{user.name}</h3>
+                                            <p>{user.email}</p>
+                                        </div>
+                                        <div className="right">
+                                            <p>{user.address.city}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="right">
-                                    <p>Gwenborough</p>
-                                </div>
-                            </div>
-                        </div>
-                    ))
-                }
+                            ))
+                        }
+                    </div>
+                )}
+
+
             </div>
-        </div>
+
+        </>
     )
 }
 
