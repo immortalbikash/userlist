@@ -6,7 +6,8 @@
   flex-direction: column;
   gap: 20px;
   /* width: 40%; */
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   height: 200px;
   border: 2px dotted brown;
   border-radius: 6px;

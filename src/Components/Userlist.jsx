@@ -10,6 +10,15 @@ const Userlist = () => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
 
+    const [search, setSearch] = useState('');
+
+    console.log(search);
+
+    const filteredUser = users.filter((user) =>
+        user.name.toLowerCase().includes(search.toLowerCase()));
+
+    console.log(filteredUser)
+
     const getUsers = async () => {
 
         try {
@@ -34,12 +43,12 @@ const Userlist = () => {
         <>
             <div className='article'>
                 <h1>Team Members</h1>
-                <input type="text" placeholder='Search by name...' />
+                <input type="text" placeholder='Search by name...' onChange={(e) => setSearch(e.target.value)} />
 
                 {loading ? (<Loading />) : (
                     <div className="user_list">
                         {
-                            users.map((user) => (
+                            filteredUser.map((user) => (
                                 <div key={user.id}>
                                     <div className="user">
                                         <div className="left">
