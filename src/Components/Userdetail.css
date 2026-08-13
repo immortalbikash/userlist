@@ -1,0 +1,18 @@
+.detail_main {
+  width: 60%;
+  margin: auto;
+}
+.back {
+  color: blue;
+  text-decoration: none;
+}
+.bb {
+  border-bottom: 1px solid black;
+}
+span {
+  color: blue;
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+}

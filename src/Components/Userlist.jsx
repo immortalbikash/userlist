@@ -3,6 +3,7 @@ import './Userlist.css'
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner';
 import Loading from './Loading';
+import { Link } from 'react-router-dom';
 
 const Userlist = () => {
 
@@ -12,12 +13,9 @@ const Userlist = () => {
 
     const [search, setSearch] = useState('');
 
-    console.log(search);
-
     const filteredUser = users.filter((user) =>
         user.name.toLowerCase().includes(search.toLowerCase()));
 
-    console.log(filteredUser)
 
     const getUsers = async () => {
 
@@ -25,14 +23,10 @@ const Userlist = () => {
             const response = await axios.get(`https://jsonplaceholder.typicode.com/users`)
             setLoading(false)
             setUsers(response.data);
-            console.log(response.data);
         } catch (error) {
             setError(error.message);
             setLoading(false)
         }
-
-
-        // console.log(response.data);
     }
 
     useEffect(() => {
@@ -43,24 +37,33 @@ const Userlist = () => {
         <>
             <div className='article'>
                 <h1>Team Members</h1>
-                <input type="text" placeholder='Search by name...' onChange={(e) => setSearch(e.target.value)} />
+                <input type="text" placeholder='Search by name...' value={search} onChange={(e) => setSearch(e.target.value)} />
 
-                {loading ? (<Loading />) : (
+                {loading ? (<Loading message={"FETCHING RECORDS..."} />) : (
+
                     <div className="user_list">
                         {
-                            filteredUser.map((user) => (
-                                <div key={user.id}>
-                                    <div className="user">
-                                        <div className="left">
-                                            <h3>{user.name}</h3>
-                                            <p>{user.email}</p>
-                                        </div>
-                                        <div className="right">
-                                            <p>{user.address.city}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))
+                            error ? (<p>{error}</p>) :
+                                filteredUser.length === 0 ? (
+                                    <p>No user Found</p>
+                                ) : (
+
+                                    filteredUser.map((user) => (
+                                        <Link className='link' key={user.id} to={`/users/${user.id}`}>
+                                            <div key={user.id}>
+                                                <div className="user">
+                                                    <div className="left">
+                                                        <h3>{user.name}</h3>
+                                                        <p>{user.email}</p>
+                                                    </div>
+                                                    <div className="right">
+                                                        <p>{user.address.city}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    ))
+                                )
                         }
                     </div>
                 )}
